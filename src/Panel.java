@@ -20,17 +20,17 @@ public class Panel extends JPanel implements MouseListener{
 			
 			
 			
-			// rastgele bir konum oluþturma (satýr, sütun)
-			int satýr = (int)(Math.random()*board.length);
+			// rastgele bir konum oluþturma (satir, sütun)
+			int satir = (int)(Math.random()*board.length);
 			int sutun = (int)(Math.random()*board[0].length);
 			
 			
-			while(board[satýr][sutun].isMine) {
-				satýr = (int)(Math.random()*board.length);
+			while(board[satir][sutun].isMine) {
+				satir = (int)(Math.random()*board.length);
 				sutun = (int)(Math.random()*board[0].length);
 			}
 
-			board[satýr][sutun].isMine= true;
+			board[satir][sutun].isMine= true;
 			count++;
 			
 		}
@@ -46,11 +46,11 @@ public class Panel extends JPanel implements MouseListener{
 		
 		if(!board[bm][tik].isMine) return; 
 		
-		for(int satýr = bm-1; satýr <= bm+1; satýr++) {
+		for(int satir = bm-1; satir <= bm+1; satir++) {
 			for(int sutun = tik-1; sutun <= tik+1; sutun++) {
 				
 				try {
-					board[satýr][sutun].count++;
+					board[satir][sutun].count++;
 				}catch(Exception e) {
 				//Hic bir sey yapma sinirin disina ciktin.
 				}
@@ -69,13 +69,13 @@ public class Panel extends JPanel implements MouseListener{
 
 
 	
-	// her kutu baþýna düþen mayýn sayýsý
+	// her kutu basina dusen mayin sayisi
 	public void countMines() {
 		
-		for(int satýr = 0; satýr < board.length; satýr++) {
+		for(int satir = 0; satir < board.length; satir++) {
 			for(int sutun = 0; sutun < board[0].length; sutun++) {
 				
-				updateCount(satýr,sutun);
+				updateCount(satir,sutun);
 			}
 		}	
 		
@@ -83,13 +83,13 @@ public class Panel extends JPanel implements MouseListener{
 	
 	
 	public void displayMines() {
-		for(int satýr = 0; satýr < board.length; satýr++) {
+		for(int satir = 0; satir < board.length; satir++) {
 			for(int sutun = 0; sutun < board[0].length; sutun++) {
-					if(board[satýr][sutun].isMine) {
-						board[satýr][sutun].setIcon(new ImageIcon("mayýn.png"));
-            	board[satýr][sutun].setText("*");
+					if(board[satir][sutun].isMine) {
+						board[satir][sutun].setIcon(new ImageIcon("mayin.png"));
+            	board[satir][sutun].setText("*");
 					}else{
-           board[satýr][sutun].setText(board[satýr][sutun].getCount()+"");
+           board[satir][sutun].setText(board[satir][sutun].getCount()+"");
           }
 					
 			}
@@ -101,7 +101,7 @@ public class Panel extends JPanel implements MouseListener{
 
 	public Panel() {
 		
-		JFrame frame = new JFrame("MAYÝNTARLASÝ!!");
+		JFrame frame = new JFrame("MAYINTARLASI!!");
 		frame.setSize(750,750);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -110,12 +110,12 @@ public class Panel extends JPanel implements MouseListener{
 		
 		
 	
-		for(int satýr = 0; satýr < board.length; satýr++) {
+		for(int satir = 0; satir < board.length; satir++) {
 			for(int sutun = 0; sutun < board[0].length; sutun++) {
-				Kutular t = new Kutular(satýr, sutun);		
+				Kutular t = new Kutular(satir, sutun);		
 				t.addMouseListener(this);		
 				frame.add(t); 		
-				board[satýr][sutun] = t;
+				board[satir][sutun] = t;
 				
 			}
 		}		
@@ -128,11 +128,11 @@ public class Panel extends JPanel implements MouseListener{
 	}
 
   public void gameOver(){
-    System.out.println("OYUNBÝTTÝ");
+    System.out.println("OYUNBITTI");
     for(int bm = 0; bm < board.length; bm++){
       for(int tik = 0; tik < board[0].length; tik++){
         if(board[bm][tik].isMine){
-          board[bm][tik].setIcon(new ImageIcon("mayýn.png"));
+          board[bm][tik].setIcon(new ImageIcon("mayin.png"));
         }
       }
     }
@@ -140,7 +140,7 @@ public class Panel extends JPanel implements MouseListener{
 
 
   public void reveal(int bm, int tik){
-    System.out.println("AÇIK!");
+    System.out.println("AÇiK!");
    
 
     if(bm<0 || bm>=board.length || tik<0|| tik>=board[0].length ||
@@ -152,10 +152,10 @@ public class Panel extends JPanel implements MouseListener{
     }else{
       board[bm][tik].setEnabled(false);
       reveal(bm-1,tik);//kuzeyinde
-      reveal(bm+1,tik);//güneyinde	
+      reveal(bm+1,tik);//guneyinde	
       
-      reveal(bm,tik-1);//doðda
-      reveal(bm,tik+1);//batýda
+      reveal(bm,tik-1);//doguda
+      reveal(bm,tik+1);//batida
     }
 
   }
@@ -180,7 +180,7 @@ public class Panel extends JPanel implements MouseListener{
 		}else if(arg0.getButton()==3) {
 			
 		
-			System.out.println("SAÐ");
+			System.out.println("SAg");
 			Kutular t = (Kutular)(arg0.getComponent());
       t.toggle();
 			//t.setIcon(new ImageIcon("bayrak.png"));
